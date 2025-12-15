@@ -40,19 +40,15 @@ class ConfluenceConnector:
                 url=self.url,
                 username=self.username,
                 password=self.api_token,
-                cloud=True  # Set to False if using Confluence Server/Data Center
+                cloud=True
             )
             
             # Verify connection by trying to get spaces (this validates credentials)
-            # Just get one space to verify connection works
             try:
                 spaces = self.confluence.get_all_spaces(start=0, limit=1)
                 logger.info(f"Successfully connected to Confluence as: {self.username}")
             except Exception as verify_error:
-                # If getting spaces fails, try a simple API call
-                # This will raise an error if credentials are wrong
                 logger.warning(f"Could not verify connection by getting spaces: {verify_error}")
-                # Connection object is still created, will fail on actual use if credentials are wrong
                 logger.info(f"Confluence connection initialized for: {self.username}")
             
             return self.confluence
