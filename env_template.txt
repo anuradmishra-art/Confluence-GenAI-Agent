@@ -9,7 +9,5 @@ CONFLUENCE_SPACE_KEY=
 # OpenAI Configuration (for Gen AI agent)
 OPENAI_API_KEY=your-openai-api-key
 
-# Optional: Model selection
-# Default is gpt-3.5-turbo (works for most users)
-# Other options: gpt-4, gpt-4-turbo, gpt-4o (requires GPT-4 access)
+# Model selection
 OPENAI_MODEL=gpt-3.5-turbo
