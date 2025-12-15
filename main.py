@@ -10,7 +10,6 @@ from genai_agent import ConfluenceGenAIAgent
 
 load_dotenv()
 
-
 def main():
     """Main application function"""
     print("=" * 60)
@@ -19,7 +18,6 @@ def main():
     print()
     
     try:
-        # Initialize the agent
         print("Initializing Confluence connection and Gen AI agent...")
         agent = ConfluenceGenAIAgent()
         print("✓ Connected successfully!\n")
