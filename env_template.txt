@@ -1,0 +1,15 @@
+# Confluence Configuration
+CONFLUENCE_URL=https://yourcompany.atlassian.net/wiki
+CONFLUENCE_USERNAME=your-email@example.com
+CONFLUENCE_API_TOKEN=your-api-token-here
+
+# Optional: Default space key to search in (leave empty to search all spaces)
+CONFLUENCE_SPACE_KEY=
+
+# OpenAI Configuration (for Gen AI agent)
+OPENAI_API_KEY=your-openai-api-key
+
+# Optional: Model selection
+# Default is gpt-3.5-turbo (works for most users)
+# Other options: gpt-4, gpt-4-turbo, gpt-4o (requires GPT-4 access)
+OPENAI_MODEL=gpt-3.5-turbo
