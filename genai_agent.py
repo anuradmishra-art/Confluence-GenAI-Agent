@@ -1,6 +1,6 @@
 """
 Gen AI Agent Module
-Uses OpenAI to create an intelligent agent that queries Confluence data
+Uses OpenAI to create an agent that queries Confluence data
 """
 
 import os
@@ -8,7 +8,6 @@ from typing import List, Dict, Optional
 from openai import OpenAI
 from dotenv import load_dotenv
 import logging
-
 from confluence_connector import ConfluenceConnector
 
 load_dotenv()
@@ -18,13 +17,9 @@ logger = logging.getLogger(__name__)
 
 
 class ConfluenceGenAIAgent:
-    """Gen AI Agent that intelligently queries Confluence data"""
-    
     def __init__(self):
         """Initialize the Gen AI agent"""
         api_key = os.getenv("OPENAI_API_KEY")
-        # Default to gpt-3.5-turbo which is more widely available
-        # Users can override with OPENAI_MODEL env variable
         self.model = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
         
         if not api_key:
@@ -188,35 +183,11 @@ class ConfluenceGenAIAgent:
             
             # Provide helpful messages for common errors
             if "429" in error_msg or "quota" in error_msg.lower() or "insufficient_quota" in error_msg.lower():
-                return """I encountered a quota/billing issue with the OpenAI API.
-
-This usually means:
-1. Your free trial credits have been used up
-2. You need to add a payment method
-3. You've reached your spending limit
-4. You're making requests too quickly (rate limit)
-
-To fix this:
-• Go to https://platform.openai.com/account/billing and add a payment method
-• Check your usage at https://platform.openai.com/account/usage
-• Increase spending limits if needed
-• Wait a few minutes if it's a rate limit issue
-
-See FIX_OPENAI_QUOTA.md for detailed instructions."""
+                return """I encountered a quota/billing issue with the OpenAI API."""
             elif "401" in error_msg or "unauthorized" in error_msg.lower():
-                return """I encountered an authentication error with the OpenAI API.
-
-Please check:
-• Your OPENAI_API_KEY in the .env file is correct
-• The API key hasn't been revoked
-• You're using a valid API key from https://platform.openai.com/api-keys"""
+                return """I encountered an authentication error with the OpenAI API."""
             elif "404" in error_msg or "model" in error_msg.lower():
-                return f"""I encountered an error with the AI model.
-
-Please check:
-• Your OPENAI_MODEL in .env is a valid model name (e.g., gpt-3.5-turbo)
-• You have access to the specified model
-• See FIX_MODEL_ERROR.md for model options"""
+                return f"""I encountered an error with the AI model."""
             else:
                 return f"I encountered an error while processing your query: {error_msg}"
     
@@ -227,3 +198,4 @@ Please check:
     def search(self, query: str, space_key: Optional[str] = None, max_results: int = 20) -> List[Dict]:
         """Direct search in Confluence"""
         return self.confluence.search_content(query, space_key=space_key, max_results=max_results)
+
